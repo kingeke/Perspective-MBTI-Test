@@ -49,7 +49,7 @@ You can now access the server at http://127.0.0.1:8000
     php artisan migrate
     php artisan serve
 
-To run tests and assert the app still works 100%
+To run tests and assert the app still works 100%, set DB_DATABASE variable in phpunit.xml to your test database, then run
     
     php vendor/phpunit/phpunit/phpunit
 
