@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
+use App\Rank;
 
 class MainTest extends TestCase
 {
@@ -31,13 +33,18 @@ class MainTest extends TestCase
      */
     public function user_can_submit_form_and_get_mbti_result()
     {
-        $response = $this->post('/api/submit-result', $this->validData());
+        $data = $this->validData();
+        $response = $this->post('/api/submit-result', $data);
 
         $response->assertStatus(200);
         $response->assertJson([
             'status' => 'success',
             'mbti' => 'ENTP'
         ]);
+
+        $this->assertCount(1, User::all());
+        $this->assertCount(count($data['response']), Rank::all());
+        $this->assertEquals($data['email'], User::first()->email);
     }
 
     /**
