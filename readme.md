@@ -49,6 +49,10 @@ You can now access the server at http://127.0.0.1:8000
     php artisan migrate
     php artisan serve
 
+To run tests and assert the app still works 100%
+    
+    php vendor/phpunit/phpunit/phpunit
+
 # Code overview
 
 ## NPM Packages
