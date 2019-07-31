@@ -12,5 +12,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/', function(){
+    return response()->json([
+        'status' => 'OK',
+        'version' => '1.0'
+    ], 200);
+});
 
 Route::post('/submit-result', 'PerspectiveController@store');
