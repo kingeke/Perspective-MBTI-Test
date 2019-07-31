@@ -1,85 +1,64 @@
-# SHIFT - Technical Interview Challenge
+> ### Myers-Briggs Type Indicator (MBTI) Perspective Tool.
 
-Rather than a whiteboard interview or an automated coding test, we have each candidate perform a medium sized interview challenge. This challenge is your opportunity to show off your skills and have insight into the type of technical tasks we deal with on a daily basis at SHIFT.
+This repo is the submission of Chinonso Eke's Shift Job Application Challenge.
 
-### Intro to the Challenge
+---
 
-One of our core tools to understand team dynamics is our Perspective Tool. Perspective is a 7 minute test that determines each team member's Myers-Briggs Type Indicator or MBTI (https://www.mindfulnessmuse.com/individual-differences/understanding-myers-briggs-type-indicator). Using this information, and understanding the personality breakdown of each team member, allows for a much better understanding of why a team is having a particular problem.
+# Getting started
 
-For this task you will be building a simplified version of our Perspective Test.
+## Installation
 
-We estimate this challenge should take less than 3 hours from start to finish. Please note that this estimate is not a time constraint. You are free to take as little or much time as you feel comfortable with, we are only giving you an estimate so you know the level of effort we expect.
+Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.8/installation)
 
-As a full stack engineer you will need to work on both sides of the stack, this challenge will test your skills on both the front-end and the back-end.
+Clone the repository
 
-### Open Source Alternative
+    git clone https://github.com/kingeke/Perspective-MBTI-Test.git
 
-If you have an open source project that you would like to submit to us instead of performing the coding challenge you may send it to us instead.
+Switch to the repo folder
 
-Please note that the open source project will need to demonstrate your ability to work on both the front-end and the back-end as a full stack web developer. You will need to be the primary contributor and the project should be complicated enough to show off your skills.
+    cd Perspective-MBTI-Test
 
-### User Interface Spec
+Install all the dependencies using composer
 
--   The landing page of the web application should show the user a list of questions as shown as the "Perspective Test" page in the design
+    composer install
 
-    -   Full Design: https://www.figma.com/file/00SYaOnpIUYLAdvhGlTz4j97/Engineer-Perspective-Test?node-id=1%3A348
-    -   The personality test should ask 10 questions
+Install all the packages using npm
 
-        -   All questions should be listed on the same page when the user opens up the page
+    npm install
 
-    -   Each question should be displayed with 7 radio buttons
-        -   The radio button furthest to the left indicates a 1 value, while the radio button furthest to the right indicates a 7
-    -   At the bottom of the test the user should be asked for their email
-    -   If a user submits without answering all of the questions, they should be given an error message and told what to do
-    -   Once the user hits submit, their email and test answers should be sent to the server
-    -   The user then should be directed to their results page
+Copy the example env file and make the required configuration changes in the .env file
 
--   The results page should display the user's MBTI results as shown as the "Perspective Results" page in the design
-    -   Full Design: https://www.figma.com/file/00SYaOnpIUYLAdvhGlTz4j97/Engineer-Perspective-Test?node-id=1%3A566
-    -   On the left of the results box the user should see the text "Your Perspective" followed by their perspective type
-    -   On the right of the results box the user should see the 4 MBTI dimensions and where they lean on each dimension
-        -   Note: You do not need to show the degree that they lean from each side, simply coloring the box for the side that they lean on each dimension is valid for this test
+    cp .env.example .env
 
-### MBTI Test Spec
+Generate a new application key
 
--   Using the provided spreadsheet, display each question as a 1 through 7 rating scale.
-    -   A user will be asked a question, and then asked to rate on a scale of 1 to 7 how much this question resonates with them.
-    -   If the user ranks a 1, that means the question doesn't resonate with them at all
-    -   If the user ranks a 7, that means the question resonates with them fully
-    -   If the user ranks a 4, that means the resonance was neutral
--   There are four dimensions to an MBTI test
-    -   EI - Extraversion (E) or Introversion (I)
-    -   SN - Sensing (S) or Intuition (N)
-    -   TF - Thinking (T) or Feeling (F)
-    -   JP - Judging (J) or Perceiving (P)
--   Each question will determine where a user falls in one of the particular dimensions
-    -   This is defined per question by the Dimension column on the spreadsheet
-        -   The direction that the user leans is defined by the Direction and Meaning Columns
-    -   The result of an MBTI test looks at each of the 4 dimensions and determines which side the user leans
--   The end result is the top letter for each dimension
-    -   If a user leans:
-        -   Extraversion (E) in the Extraversion/Introversion (E/I) Dimension
-        -   Intuition (N) in the Sensing/Intuition (S/N) Dimension
-        -   Thinking (T) in the Thinking/Feeling (T/F) Dimension
-        -   Perceiving (P) in the Judging/Perceiving (J/P) Dimension
-    -   Their end result will be: ENTP (Extraversion Intuition Thinking Perceiving)
-    -   If a user's responses to a dimension are perfectly balanced (they don't lean more to one side or another) the algorithm should default to the first option on the list
--   There is a second spreadsheet that lists inputs from users, and their expected result
+    php artisan key:generate
 
-Note: This is a watered down version of a MBTI test, it does not ask enough questions to give a statistically accurate result. Your personal input may vary from what you've seen other MBTI tests say, this is expected. Just ensure that the results match the expected results in the tests spreadsheet.
+Run the database migrations (**Set the database connection in .env before migrating**)
 
-### Minimum Technical Requirements
+    php artisan migrate
 
--   The written application must be a web-based application
--   Data must be written to a backend database in a way that we can see user's individual answers
--   Data must be connected to a user in a way that will allow us to determine a person's MBTI based on the email address they submitted with
--   The test cases given as input should produce the listed result
--   You may implement this in the stack that you feel the most comfortable with. Our stack is:
-    -   PHP7, Laravel, MySQL for the Backend
-    -   React.js + TypeScript + MobX for the Frontend
+Start the local development server
 
-# Submitting the Challenge
+    php artisan serve
 
--   Create a repository using your personal GitHub account and send us the link. That's it!
+You can now access the server at http://127.0.0.1:8000
 
-Happy Hacking!
+**Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
+
+    php artisan migrate
+    php artisan serve
+
+# Code overview
+
+## NPM Packages
+
+-   [babel](https://babeljs.io/) - Used to convert ES6 to ES5
+-   [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser
+-   [react-detect-offline](https://www.npmjs.com/package/react-detect-offline) - Used to determine when the user is not connected to the internet
+
+## Environment variables
+
+-   `.env` - Environment variables can be set in this file
+
+**_Note_** : You can quickly set the database information and other variables in this file and have the application fully working.
