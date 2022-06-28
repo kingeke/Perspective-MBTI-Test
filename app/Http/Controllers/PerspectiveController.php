@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Http\Requests\PerspectiveStoreRequest;
 
 class PerspectiveController extends Controller
 {
     public function store(PerspectiveStoreRequest $request)
     {
-        //create or fetch the user by email
-        $user = User::firstOrCreate($request->only('email'));
-
         //update or create questions in the database, so a user has only the given set of questions
         //per request and only if the user picks a different rank does it get updated.
-        $data = $this->updateOrCreateQuestionsAndReturnData($request->response, $user);
+        $data = $this->updateOrCreateQuestionsAndReturnData($request->response);
 
         //generate the mbti by using a, b, dimension algorithm
         $mbti = $this->dominantDimension(
@@ -32,7 +28,7 @@ class PerspectiveController extends Controller
         ], 200);
     }
 
-    public function updateOrCreateQuestionsAndReturnData($responses, $user)
+    public function updateOrCreateQuestionsAndReturnData($responses)
     {
         //associative array of individual dimensions
         $data = array('E' => 0, 'I' => 0, 'S' => 0, 'N' => 0, 'T' => 0, 'F' => 0, 'J' => 0, 'P' => 0);
@@ -41,8 +37,6 @@ class PerspectiveController extends Controller
         foreach ($responses as $response) {
 
             //calls the storeRanks method on the user model, which just updateOrCreates the question
-            $user->storeRanks($response['question'], $response['rank']);
-
             //increment the array based on the rank chosen
             if ($response['score'] == $response['dimension'][0]) {
                 $data[$response['dimension'][0]]++;
