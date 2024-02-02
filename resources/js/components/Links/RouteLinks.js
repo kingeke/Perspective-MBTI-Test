@@ -4,5 +4,5 @@ export const MainRouteLinks = {
 }
 
 export const ApiRouteLinks = {
-    store: '/api/submit-result'
+    store: '/backend/submit-result'
 }
